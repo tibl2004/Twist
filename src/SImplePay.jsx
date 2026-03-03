@@ -24,6 +24,12 @@ export default function SimplePay() {
     setStatus("success");
   };
 
+  const handleClose = () => {
+    setStatus("idle");
+    setAmount("");
+    setShow(false);
+  };
+
   useEffect(() => {
     if (status === "success") {
       setTimeout(() => setShow(true), 50);
@@ -85,22 +91,11 @@ export default function SimplePay() {
             </div>
           </div>
 
-          <div
-            style={{
-              ...styles.successText,
-              opacity: show ? 1 : 0
-            }}
-          >
+          <div style={{ ...styles.successText, opacity: show ? 1 : 0 }}>
             Zahlung erfolgreich
           </div>
 
-          {/* DATUM + UHRZEIT */}
-          <div
-            style={{
-              ...styles.timestamp,
-              opacity: show ? 1 : 0
-            }}
-          >
+          <div style={{ ...styles.timestamp, opacity: show ? 1 : 0 }}>
             {timestamp}
           </div>
 
@@ -118,6 +113,11 @@ export default function SimplePay() {
             <div style={styles.recipientLabel}>An</div>
             <div style={styles.recipient}>{recipient}</div>
           </div>
+
+          {/* SCHLIESSEN BUTTON FIXIERT UNTEN */}
+          <button style={styles.closeButton} onClick={handleClose}>
+            Schliessen
+          </button>
 
         </div>
       )}
@@ -173,8 +173,9 @@ const styles = {
     background: "linear-gradient(180deg, #24b35a 0%, #128a40 100%)",
     display: "flex",
     flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
+    paddingTop: 80,
+    paddingBottom: 100
   },
   hexOuter: {
     width: 140,
@@ -206,8 +207,7 @@ const styles = {
   timestamp: {
     marginTop: 6,
     color: "rgba(255,255,255,0.85)",
-    fontSize: 14,
-    fontWeight: 400
+    fontSize: 14
   },
   card: {
     marginTop: 28,
@@ -238,5 +238,16 @@ const styles = {
     fontSize: 17,
     fontWeight: 500,
     color: "#222"
+  },
+  closeButton: {
+    position: "absolute",
+    bottom: 30,
+    width: "85%",
+    padding: 16,
+    borderRadius: 16,
+    border: "none",
+    background: "rgba(255,255,255,0.9)",
+    fontSize: 16,
+    fontWeight: 600
   }
 };
